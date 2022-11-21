@@ -1,11 +1,13 @@
 class Propiedad:
-    def __init__(self, codigo, ubicacion, precio, m2, estado, habitaciones):
+    def __init__(self, codigo, ubicacion, precio, m2, estado, habitaciones, tipo):
         self.__codigo = codigo
         self.__ubicacion = ubicacion
         self.__precio = precio
         self.__m2 = m2
         self.__estado = estado
         self.__habitaciones = habitaciones
+        self.__tipo = tipo
+
     def actualizarDatos(self):
         clave = input("Ingrese la clave: ")
         if clave == "2111":
@@ -17,9 +19,10 @@ class Propiedad:
                 print("4. M2: ", self.__m2)
                 print("5. Estado de la obra: ", self.__estado)
                 print("6. N° de habitaciones: ", self.__habitaciones)
-                print("7. Salir")
+                print("7. Tipo de vivienda: ", self.__tipo)
+                print("8. Salir")
                 opc = input("Seleccione una opción: ")
-                if opc == "7":
+                if opc == "8":
                     break
                 elif opc == "1":
                     while True:
@@ -35,7 +38,7 @@ class Propiedad:
                     ubicacion = input("Ingrese la nueva ubicacion: ")
                     self.__ubicacion = ubicacion
                 elif opc == "3":
-                    precio = float(input("Ingrese el nuevo precio: "))
+                    precio = int(input("Ingrese el nuevo precio: "))
                     self.__precio = precio
                 elif opc == "4":
                     m2 = int((input("Ingrese el área corregida: ")))
@@ -46,6 +49,9 @@ class Propiedad:
                 elif opc == "6":
                     habitaciones = int(input("Ingrese el nuevo número de habitaciones: "))
                     self.__habitaciones = habitaciones
+                elif opc == "7":
+                    tipo = input("Ingrese el tipo de vivienda (Casa o Departamento): ")
+                    self.__tipo = tipo
                 else:
                     print("Opción equivocada")
         else:
@@ -64,6 +70,8 @@ class Propiedad:
         return self.__estado
     def getHabitaciones(self):
         return self.__habitaciones
+    def getTipo(self):
+        return self.__tipo
 # Funciones del p.principal
 def ingresar():
     print(" ** Ingresando una nueva propiedad ** ")
@@ -81,7 +89,7 @@ def ingresar():
             print("Ingrese una ubicación válida")
     while True:
         try:
-            precio = float(input("Ingrese el precio: "))
+            precio = int(input("Ingrese el precio: "))
             if precio > 1000:
                 break
             else:
@@ -112,7 +120,13 @@ def ingresar():
                 print("Ingrese un N° de habitaciones válido")
         except:
             pass
-    objeto = Propiedad(codigo, ubicacion, precio, m2, estado, habitaciones)
+    while True:
+        tipo = input("Ingrese el tipo de vivienda (Casa o Departamento): ")
+        if tipo.lower() == "casa" or tipo.lower() == "departamento":
+            break
+        else:
+            print("Ingrese un tipo de vienda válido")
+    objeto = Propiedad(codigo, ubicacion, precio, m2, estado, habitaciones, tipo)
     COD.append(codigo)
     L.append(objeto)
 def ingresarauto():
@@ -123,7 +137,8 @@ def ingresarauto():
         m2 = L1[x][3]
         estado = L1[x][4]
         habitaciones = L1[x][5]
-        objeto = Propiedad(codigo, ubicacion, precio, m2, estado, habitaciones)
+        tipo = L1[x][6]
+        objeto = Propiedad(codigo, ubicacion, precio, m2, estado, habitaciones, tipo)
         COD.append(codigo)
         L.append(objeto)
 
@@ -151,9 +166,9 @@ def editar():
     except:
         print("El Código no existe")
 def visualizar():
-    print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format("Código", "Ubicación", "Precio", "M2", "Estado de la obra", "N° de Habitaciones"))
+    print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:20}{6:25}".format("Código", "Ubicación", "Precio", "M2", "Estado de la obra", "N° de Habitaciones", "Tipo de vivienda"))
     for x in L:
-        print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format(x.getCodigo(), x.getUbicacion(), str(x.getPrecio()), str(x.getM2()), x.getEstado(), str(x.getHabitaciones())))
+        print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:20}{6:25}".format(x.getCodigo(), x.getUbicacion(), str(x.getPrecio()), str(x.getM2()), x.getEstado(), str(x.getHabitaciones()), x.getTipo()))
 def inversion():
     visualizar()
     INV = [x.getPrecio() for x in L]
@@ -162,26 +177,26 @@ def inversion():
 # Programa principal
 
 L1 = [
-   ["0001","Lince",110000,80,"En construcción",2],
-   ["0002","Miraflores",180000,120,"En construcción",3],
-   ["0003","Breña",105000,70,"Acabada",3],
-   ["0004","San Miguel",106000,60,"En construcción",4],
-   ["0005","Surco",190000,70,"En construcción",3],
-   ["0006","Lince",100000,80,"Acabada",4],
-   ["0007","Miraflores",200000,67,"En construcción",5],
-   ["0008","San Isidro",250000,80,"Acabada",6],
-   ["0009","La Molina",300000,110,"En construcción",3],
-   ["0010","Jesús María",110000,90,"Acabada",5],
-   ["0011", "Breña", 190000, 180, "Acabada", 5],
-   ["0012", "Miraflores", 380000, 220, "Acabada", 6],
-   ["0013", "Breña", 189000, 170, "Acabada", 5],
-   ["0014", "Surco", 196000, 260, "Acabada", 6],
-   ["0015", "Surco", 290000, 170, "Acabada", 5],
-   ["0016", "Barranco", 190000, 280, "Acabada", 7],
-   ["0017", "Miraflores", 200000, 167, "Acabada", 8],
-   ["0018", "San Isidro", 250000, 180, "Acabada", 5],
-   ["0019", "La Molina", 400000, 240, "Acabada", 6],
-   ["0020", "Jesús María", 110000, 190, "Acabada", 5]
+   ["0001","Lince",110000,80,"En construcción",2,"Departamento"],
+   ["0002","Miraflores",180000,120,"En construcción",3,"Casa"],
+   ["0003","Breña",105000,70,"Acabada",3,"Departamento"],
+   ["0004","San Miguel",106000,60,"En construcción",4,"Departamento"],
+   ["0005","Surco",190000,70,"En construcción",3,"Departamento"],
+   ["0006","Lince",100000,80,"Acabada",4,"Departamento"],
+   ["0007","Miraflores",200000,67,"En construcción",5,"Departamento"],
+   ["0008","San Isidro",250000,80,"Acabada",6,"Departamento"],
+   ["0009","La Molina",300000,110,"En construcción",3,"Casa"],
+   ["0010","Jesús María",110000,90,"Acabada",5,"Departamento"],
+   ["0011", "Breña", 190000, 180, "Acabada", 5, "Casa"],
+   ["0012", "Miraflores", 380000, 220, "Acabada", 6, "Casa"],
+   ["0013", "Breña", 189000, 170, "Acabada", 5, "Casa"],
+   ["0014", "Surco", 196000, 260, "Acabada", 6, "Casa"],
+   ["0015", "Surco", 290000, 170, "Acabada", 5, "Casa"],
+   ["0016", "Barranco", 190000, 280, "Acabada", 7, "Casa"],
+   ["0017", "Miraflores", 200000, 167, "Acabada", 8, "Departamento"],
+   ["0018", "San Isidro", 250000, 180, "Acabada", 5, "Departamento"],
+   ["0019", "La Molina", 400000, 240, "Acabada", 6, "Casa"],
+   ["0020", "Jesús María", 110000, 190, "Acabada", 5, "Departamento"]
    ]
 L = []
 COD = []
@@ -206,4 +221,3 @@ while True:
         visualizar()
     elif opc=="5":
         inversion()
- #Gracias
