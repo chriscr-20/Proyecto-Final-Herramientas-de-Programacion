@@ -1,6 +1,6 @@
 import re
-from string import punctuation
-#Lista de Clientes
+from string import punctuation #Importar librería con carácteres especiales
+
 class Clientes(object):
     def __init__(self, nombre, apellido,tel,correo,contraseña, ):
         self.nombre = nombre
@@ -14,98 +14,6 @@ class Clientes(object):
          return self.__contraseña
      else:
          return "No esta autorizado para entrar a esta cuenta"
-
-def Registrar():
-    print("Inicio del Registro\n")
-    while True:
-        try:
-            nombre = input("Ingrese su nombre: ")
-            if len(nombre.strip()) != 0:
-                break
-        except:
-            pass
-    while True:
-        try:
-            apellido = input("Ingrese su apellido: ")
-            if len(apellido.strip()) != 0:
-                break
-        except:
-            pass
-    while True:
-        tel = input("Ingrese su teléfono: ")
-        if len(tel) != 9 or len(tel.strip())==0 or tel[0]!="9":
-             print("Ingrese un número de teléfono válido")
-             pass
-        else:
-            break
-    while True:
-        correo = input("Ingrese un correo: ")
-        if es_correo_valido(correo):
-            print("Correo válido")
-            break
-        else:
-            print("El correo no es válido")
-
-    while True:
-        intentos = 0
-        contraseña = input("Introduce contraseña: ")
-        intentos += 1
-        if validador_contraseña(contraseña):
-            print("La contraseña introducida ha sido {}".format(contraseña))
-            break
-        elif intentos > 5:
-            contraseña = None
-            print("No ha sido posible establecer una contraseña")
-            break
-    ObjCliente = Clientes(nombre,apellido,tel,correo,contraseña)
-    C.append(ObjCliente)
-    contraseñas.append(contraseña)
-    usuarios.append(correo)
-def validador_contraseña (cts):
-    if len (cts) < 6 or len (cts) > 12:
-        print ("La contraseña ha de tener entre 6 y 12 carácteres")
-    elif not any ([c.isdigit() for c in cts]):
-        print ("La contraseña ha de contener algún dígito")
-    elif not any ([c.islower () for c in cts]):
-        print ("La contraseña ha de contener alguna minúscula")
-    elif not any ([c.isupper () for c in cts]):
-        print ("La contraseña ha de contener alguna mayúscula")
-    elif not any ([True if C in punctuation else False for C in cts]):
-        print ("La contraseña ha de contener algún carácter especial")
-    else:
-        return True
-    return False
-def es_correo_valido(correo):
-    expresion_regular = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"
-    return re.match(expresion_regular, correo) is not None
-
-def contraseña_existente(contra):
-  if contra in contraseñas:
-      return True
-  else:
-      return False
-def correo_existente(usuario):
-    if usuario in usuarios:
-        return True
-    else:
-        return False
-
-def contactar():
-    while True:
-     print("Ingrese el código de la propiedad que desea adquirir: ")
-     cod=input("Ingresa el código: ")
-     try:
-        ind = COD.index(cod)
-        x=L[ind]
-        print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format("Código", "Ubicación", "Precio", "M2", "Estado de la obra",
-                                                            "N° de Habitaciones"))
-        print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format(x.getCodigo(), x.getUbicacion(), str(x.getPrecio()),
-                                                            str(x.getM2()), x.getEstado(), str(x.getHabitaciones())))
-        print("Muy pronto nos pondremos en contacto con usted")
-        break
-     except:
-        print("El Código no existe: ")
-
 
 class Propiedad:
     def __init__(self, codigo, ubicacion, precio, m2, estado, habitaciones, tipo):
@@ -181,7 +89,103 @@ class Propiedad:
         return self.__habitaciones
     def getTipo(self):
         return self.__tipo
-# Funciones del p.principal
+
+#Funciones del Programa
+
+def Registrar():
+    print("Inicio del Registro\n")
+    while True:
+        try:
+            nombre = input("Ingrese su nombre: ")
+            if len(nombre.strip()) != 0:
+                break
+        except:
+            pass
+    while True:
+        try:
+            apellido = input("Ingrese su apellido: ")
+            if len(apellido.strip()) != 0:
+                break
+        except:
+            pass
+    while True:
+        tel = input("Ingrese su teléfono: ")
+        if len(tel) != 9 or len(tel.strip())==0 or tel[0]!="9":
+             print("Ingrese un número de teléfono válido")
+             pass
+        else:
+            break
+    while True:
+        correo = input("Ingrese un correo: ")
+        if es_correo_valido(correo):
+            print("Correo válido")
+            break
+        else:
+            print("El correo no es válido")
+
+    while True:
+        intentos = 0
+        contraseña = input("Introduce contraseña: ")
+        intentos += 1
+        if validador_contraseña(contraseña):
+            print("La contraseña introducida ha sido {}".format(contraseña))
+            break
+        elif intentos > 5:
+            contraseña = None
+            print("No ha sido posible establecer una contraseña")
+            break
+    ObjCliente = Clientes(nombre,apellido,tel,correo,contraseña)
+    C.append(ObjCliente)
+    contraseñas.append(contraseña)
+    usuarios.append(correo)
+
+def validador_contraseña (cts):
+    if len (cts) < 6 or len (cts) > 12:
+        print ("La contraseña ha de tener entre 6 y 12 carácteres")
+    elif not any ([c.isdigit() for c in cts]):
+        print ("La contraseña ha de contener algún dígito")
+    elif not any ([c.islower () for c in cts]):
+        print ("La contraseña ha de contener alguna minúscula")
+    elif not any ([c.isupper () for c in cts]):
+        print ("La contraseña ha de contener alguna mayúscula")
+    elif not any ([True if C in punctuation else False for C in cts]):
+        print ("La contraseña ha de contener algún carácter especial")
+    else:
+        return True
+    return False
+
+def es_correo_valido(correo):
+    expresion_regular = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"
+    return re.match(expresion_regular, correo) is not None
+
+def contraseña_existente(contra):
+  if contra in contraseñas:
+      return True
+  else:
+      return False
+
+def correo_existente(usuario):
+    if usuario in usuarios:
+        return True
+    else:
+        return False
+
+def contactar():
+    while True:
+     print("Ingrese el código de la propiedad que desea adquirir: ")
+     cod=input("Ingresa el código: ")
+     try:
+        ind = COD.index(cod)
+        x=L[ind]
+        print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format("Código", "Ubicación", "Precio", "M2", "Estado de la obra",
+                                                            "N° de Habitaciones"))
+        print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format(x.getCodigo(), x.getUbicacion(), str(x.getPrecio()),
+                                                            str(x.getM2()), x.getEstado(), str(x.getHabitaciones())))
+        print("Muy pronto nos pondremos en contacto con usted")
+        break
+     except:
+        print("El Código no existe: ")
+
 def ingresar():
     print(" ** Ingresando una nueva propiedad ** ")
     while True:
@@ -238,6 +242,7 @@ def ingresar():
     objeto = Propiedad(codigo, ubicacion, precio, m2, estado, habitaciones, tipo)
     COD.append(codigo)
     L.append(objeto)
+
 def ingresarauto():
     for x in range(len(L1)):
         codigo = L1[x][0]
@@ -261,6 +266,7 @@ def eliminar():
         print("Se elimino la propiedad")
     except:
         print("El Código no existe: ")
+
 def editar():
     print("Ingrese el código de la propiedad a editar")
     codigo = input("Ingrese el Código: ")
@@ -274,14 +280,78 @@ def editar():
             COD[ind] = codigoOriginal
     except:
         print("El Código no existe")
+
 def visualizar():
     print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:20}{6:25}".format("Código", "Ubicación", "Precio", "M2", "Estado de la obra", "N° de Habitaciones", "Tipo de vivienda"))
     for x in L:
         print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:20}{6:25}".format(x.getCodigo(), x.getUbicacion(), str(x.getPrecio()), str(x.getM2()), x.getEstado(), str(x.getHabitaciones()), x.getTipo()))
+
 def inversion():
     visualizar()
     INV = [x.getPrecio() for x in L]
     print("El precio total de todas las propiedades es: ", sum(INV))
+
+def clientes():
+  while True:
+    print("1. Registrarse")
+    print("2. Iniciar sesión")
+    print("3. Salir")
+    opc=input("Ingrese una opción: ")
+    if opc=="1":
+        Registrar()
+        print("Registro Exitoso")
+    if opc=="2":
+        while True:
+            correo = input("Ingrese su correo: ")
+            if correo_existente(correo) == True:
+                print("Correo Correcto")
+                break
+            else:
+                print("No existe ese usuario")
+
+        while True:
+            contraseña=input("Ingrese su contraseña: ")
+            if contraseña_existente(contraseña)==True:
+                print("Bienvenido")
+                break
+            else:
+                print("Contraseña incorrecta")
+        while True:
+            print("¿Qué desea hacer?")
+            print("1. Ver productos")
+            print("2. Contactar a un asesor")
+            print("3. Salir")
+            x=int(input("Elije una opción: "))
+            if x==1:
+                visualizar()
+            elif x==2:
+                contactar()
+            elif x==3:
+                break
+    if opc=="3":
+     break
+
+def vendedor():
+    while True:
+        print("1. Ingresar una nueva propiedad")
+        print("2. Eliminar una propiedad")
+        print("3. Editar los datos de alguna propiedad")
+        print("4. Visualizar todas las propiedades")
+        print("5. Visualizar el precio acumulado de todas las propiedades")
+        print("6. Salir")
+        opc = input("Selecciones una opción: ")
+        if opc == "6":
+            break
+        elif opc == "1":
+            ingresar()
+        elif opc == "2":
+            eliminar()
+        elif opc == "3":
+            editar()
+        elif opc == "4":
+            visualizar()
+        elif opc == "5":
+            inversion()
 
 # Programa principal
 
@@ -307,74 +377,12 @@ L1 = [
    ["0019", "La Molina", 400000, 240, "Acabada", 6, "Casa"],
    ["0020", "Jesús María", 110000, 190, "Acabada", 5, "Departamento"]
    ]
-
-# Programa principal
 L = []
 COD = []
-ingresarauto()
 C=[]
-contraseñas=["123"]
-usuarios=["A"]
-def clientes():
-  while True:
-    print("1) Registrarse")
-    print("2) Iniciar sesión")
-    print("3) Salir")
-    opc=int(input("Ingrese una opción: "))
-    if opc==1:
-        Registrar()
-        print("Registro Exitoso")
-    if opc==2:
-        while True:
-            correo = input("Ingrese su correo: ")
-            if correo_existente(correo) == True:
-                print("Correo Correcto")
-                break
-            else:
-                print("No existe ese usuario")
-
-        while True:
-            contraseña=input("Ingrese su contraseña: ")
-            if contraseña_existente(contraseña)==True:
-                print("Bienvenido")
-                break
-            else:
-                print("Contraseña incorrecta")
-        while True:
-            print("¿Qué desea hacer?")
-            print("1) Ver productos")
-            print("2) Contactar a un asesor")
-            print("3) Salir")
-            x=int(input("Elije una opción: "))
-            if x==1:
-                visualizar()
-            elif x==2:
-                contactar()
-            elif x==3:
-                break
-    if opc==3:
-     break
-def vendedor():
-    while True:
-        print("1. Ingresar una nueva propiedad")
-        print("2. Eliminar una propiedad")
-        print("3. Editar los datos de alguna propiedad")
-        print("4. Visualizar todas las propiedades")
-        print("5. Visualizar el precio acumulado de todas las propiedades")
-        print("6. Salir")
-        opc = input("Selecciones una opción: ")
-        if opc == "6":
-            break
-        elif opc == "1":
-            ingresar()
-        elif opc == "2":
-            eliminar()
-        elif opc == "3":
-            editar()
-        elif opc == "4":
-            visualizar()
-        elif opc == "5":
-            inversion()
+ingresarauto()
+contraseñas=[]#Contraseñas de los clientes registrados
+usuarios=[]#Usuarios de los clientes registrados
 
 while True:
     print("\n")
@@ -383,14 +391,15 @@ while True:
     print("|**|         Menu         |**|")
     print("|****************************|")
     print("")
-    print("1) Clientes")
-    print("2) Vendedor")
-    print("3) Salir")
-    x=int(input("Ingrese una opción: "))
-    if x==1:
+    print("1. Clientes")
+    print("2. Vendedor")
+    print("3. Salir")
+    x=input("Ingrese una opción: ")
+    if x=="1":
         clientes()
-    elif x==2:
+    elif x=="2":
         vendedor()
-    elif x==3:
+    elif x=="3":
         break
+
 
