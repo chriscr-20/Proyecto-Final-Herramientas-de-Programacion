@@ -1,3 +1,92 @@
+C=[]
+contraseñas=[]
+usuarios=[]
+
+import re
+from string import punctuation
+#Lista de Clientes
+class Clientes(object):
+    def __init__(self, nombre, apellido,tel,correo,contraseña, ):
+        self.nombre = nombre
+        self.apellido = apellido
+        self.tel = tel
+        self.correo = correo
+        self.contraseña = contraseña
+def Registrar():
+    print("Inicio del Registro\n")
+    while True:
+        try:
+            nombre = input("Ingrese su nombre: ")
+            if len(nombre.strip()) != 0:
+                break
+        except:
+            pass
+    while True:
+        try:
+            apellido = input("Ingrese su apellido: ")
+            if len(apellido.strip()) != 0:
+                break
+        except:
+            pass
+    while True:
+        tel = input("Ingrese su teléfono: ")
+        if len(tel) != 9 or len(tel.strip())==0:
+             print("Ingrese un número de teléfono válido")
+             pass
+        else:
+            break
+    while True:
+        correo = input("Ingrese un correo: ")
+        if es_correo_valido(correo):
+            print("Correo válido")
+            break
+        else:
+            print("El correo no es válido")
+
+    while True:
+        intentos = 0
+        contraseña = input("Introduce contraseña: ")
+        intentos += 1
+        if validador_contraseña(contraseña):
+            print("La contraseña introducida ha sido {}".format(contraseña))
+            break
+        elif intentos > 5:
+            contraseña = None
+            print("No ha sido posible establecer una contraseña")
+            break
+    ObjCliente = Clientes(nombre,apellido,tel,correo,contraseña)
+    C.append(ObjCliente)
+    contraseñas.append(contraseña)
+    usuarios.append(correo)
+def validador_contraseña (cts):
+    if len (cts) < 6 or len (cts) > 12:
+        print ("La contraseña ha de tener entre 6 y 12 carácteres")
+    elif not any ([c.isdigit() for c in cts]):
+        print ("La contraseña ha de contener algún dígito")
+    elif not any ([c.islower () for c in cts]):
+        print ("La contraseña ha de contener alguna minúscula")
+    elif not any ([c.isupper () for c in cts]):
+        print ("La contraseña ha de contener alguna mayúscula")
+    elif not any ([True if C in punctuation else False for C in cts]):
+        print ("La contraseña ha de contener algún carácter especial")
+    else:
+        return True
+    return False
+def es_correo_valido(correo):
+    expresion_regular = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"
+    return re.match(expresion_regular, correo) is not None
+
+def contraseña_existente(contra):
+  if contra in contraseñas:
+      print("Bienvenido")
+  else:
+      print("Contraseña incorrecta")
+def correo_existente(usuario):
+    if usuario in usuarios:
+        print("Usuario Correcto")
+    else:
+        print("El usuario no existe")
+
 class Propiedad:
     def __init__(self, codigo, ubicacion, precio):
         self.__codigo = codigo
