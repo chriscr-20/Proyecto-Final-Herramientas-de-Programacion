@@ -1,0 +1,193 @@
+class Propiedad:
+    def __init__(self, codigo, ubicacion, precio, m2, estado, habitaciones):
+        self.__codigo = codigo
+        self.__ubicacion = ubicacion
+        self.__precio = precio
+        self.__m2 = m2
+        self.__estado = estado
+        self.__habitaciones = habitaciones
+    def actualizarDatos(self):
+        clave = input("Ingrese la clave: ")
+        if clave == "2111":
+            while True:
+                print("Qué desea actualizar: ")
+                print("1. Código: ", self.__codigo)
+                print("2. Ubicación: ", self.__ubicacion)
+                print("3. Precio: ", self.__precio)
+                print("4. M2: ", self.__m2)
+                print("5. Estado de la obra: ", self.__estado)
+                print("6. N° de habitaciones: ", self.__habitaciones)
+                print("7. Salir")
+                opc = input("Seleccione una opción: ")
+                if opc == "7":
+                    break
+                elif opc == "1":
+                    while True:
+                        try:
+                            codigo = input("Ingrese el nuevo Código: ")
+                            int(codigo)
+                            if len(codigo) == 4:
+                                self.__codigo = codigo
+                                break
+                        except:
+                            pass
+                elif opc == "2":
+                    ubicacion = input("Ingrese la nueva ubicacion: ")
+                    self.__ubicacion = ubicacion
+                elif opc == "3":
+                    precio = float(input("Ingrese el nuevo precio: "))
+                    self.__precio = precio
+                elif opc == "4":
+                    m2 = int((input("Ingrese el área corregida: ")))
+                    self.__m2 = m2
+                elif opc == "5":
+                    estado = (input("Ingrese el estado de la obra corregido: "))
+                    self.__estado = estado
+                elif opc == "6":
+                    habitaciones = int(input("Ingrese el nuevo número de habitaciones: "))
+                    self.__habitaciones = habitaciones
+                else:
+                    print("Opción equivocada")
+        else:
+            print("No autorizado para actualizar datos")
+    def getCodigo(self):
+        return self.__codigo
+    def setCodigo(self, codigo):
+        self.__codigo = codigo
+    def getUbicacion(self):
+        return self.__ubicacion
+    def getPrecio(self):
+        return self.__precio
+    def getM2(self):
+        return self.__m2
+    def getEstado(self):
+        return self.__estado
+    def getHabitaciones(self):
+        return self.__habitaciones
+# Funciones del p.principal
+def ingresar():
+    print(" ** Ingresando una nueva propiedad ** ")
+    while True:
+        codigo = input("Ingrese Código: ")
+        if codigo not in COD and len(codigo) == 4:
+            break
+        else:
+            print("Ingrese un código válido")
+    while True:
+        ubicacion = input("Ingrese la ubicación: ")
+        if len(ubicacion) >= 3:
+            break
+        else:
+            print("Ingrese una ubicación válida")
+    while True:
+        try:
+            precio = float(input("Ingrese el precio: "))
+            if precio > 1000:
+                break
+            else:
+                print("Ingrese un precio válido")
+        except:
+            pass
+    while True:
+        try:
+            m2 = int(input("Ingrese el Área de la propiedad: "))
+            if m2 > 15:
+                break
+            else:
+                print("Ingrese un área válida")
+        except:
+            pass
+    while True:
+        estado = input("Ingrese el estado de la obra: ")
+        if len(estado) >= 3:
+            break
+        else:
+            print("Ingrese un estado de la obra válido")
+    while True:
+        try:
+            habitaciones = int(input("Ingrese el N° de Habitaciones: "))
+            if habitaciones >= 1:
+                break
+            else:
+                print("Ingrese un N° de habitaciones válido")
+        except:
+            pass
+    objeto = Propiedad(codigo, ubicacion, precio, m2, estado, habitaciones)
+    COD.append(codigo)
+    L.append(objeto)
+def eliminar():
+    print("Ingrese el código de la propiedad a eliminar")
+    codigo = input("Ingrese el Código: ")
+    try:
+        ind = COD.index(codigo)
+        del COD[ind]
+        del L[ind]
+        print("Se elimino la propiedad")
+    except:
+        print("El Código no existe: ")
+def editar():
+    print("Ingrese el código de la propiedad a editar")
+    codigo = input("Ingrese el Código: ")
+    try:
+        ind = COD.index(codigo)
+        codigoOriginal = L[ind].getCodigo()
+        L[ind].actualizarDatos()
+        COD[ind] = L[ind].getCodigo()
+        if COD.count(COD[ind]) > 1:
+            L[ind].setCodigo(dniOriginal)
+            COD[ind] = codigoOriginal
+    except:
+        print("El Código no existe")
+def visualizar():
+    print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format("Código", "Ubicación", "Precio", "M2", "Estado de la obra", "N° de Habitaciones"))
+    for x in range(len(L)):
+        print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format(L[x][0], L[x][1], L[x][2], L[x][3], L[x][4], L[x][5]))
+def inversion():
+    visualizar()
+    INV = [x.getPrecio() for x in L]
+    print("El precio total de todas las propiedades es: ", sum(INV))
+
+# Programa principal
+L =[
+   ["0001","Lince",110000,80,"En construcción",2],
+   ["0002","Miraflores",180000,120,"En construcción",3],
+   ["0003","Breña",105000,70,"Acabada","3 habitación"],
+   ["0004","San Miguel",106000,60,"En construcción",4],
+   ["0005","Surco",190000,70,"En construcción",3],
+   ["0006","Lince",100000,80,"Acabada",4],
+   ["0007","Miraflores",200000,67,"En construcción",5],
+   ["0008","San Isidro",250000,80,"Acabada",6],
+   ["0009","La Molina",300000,110,"En construcción",3],
+   ["0010","Jesús María",110000,90,"Acabada",5],
+   ["0011", "Breña", 190000, 180, "Acabada", 5],
+   ["0012", "Miraflores", 380000, 220, "Acabada", 6],
+   ["0013", "Breña", 189000, 170, "Acabada", 5],
+   ["0014", "Surco", 196000, 260, "Acabada", 6],
+   ["0015", "Surco", 290000, 170, "Acabada", 5],
+   ["0016", "Barranco", 190000, 280, "Acabada", 7],
+   ["0017", "Miraflores", 200000, 167, "Acabada", 8],
+   ["0018", "San Isidro", 250000, 180, "Acabada", 5],
+   ["0019", "La Molina", 400000, 240, "Acabada", 6],
+   ["0020", "Jesús María", 110000, 190, "Acabada", 5]
+   ]
+COD = [x[0] for x in L]
+while True:
+    print("1. Ingresar una nueva propiedad")
+    print("2. Eliminar una propiedad")
+    print("3. Editar los datos de alguna propiedad")
+    print("4. Visualizar todas las propiedades")
+    print("5. Visualizar el precio acumulado de todas las propiedades")
+    print("6. Salir")
+    opc = input("Selecciones una opción: ")
+    if opc=="6":
+        break
+    elif opc=="1":
+        ingresar()
+    elif opc=="2":
+        eliminar()
+    elif opc=="3":
+        editar()
+    elif opc=="4":
+        visualizar()
+    elif opc=="5":
+        inversion()
