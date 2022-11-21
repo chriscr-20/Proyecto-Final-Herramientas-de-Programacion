@@ -155,7 +155,7 @@ def Registrar():
 
     while True:
         intentos = 0
-        contraseña = input("Introduce contraseña: ")
+        contraseña = input("Introduce contraseña (La contraseña debe tener entre 6 y 12 carácteres, una mayúscula, un número y un carácter especial): ")
         intentos += 1
         if validador_contraseña(contraseña):
             print("La contraseña introducida ha sido {}".format(contraseña))
@@ -242,7 +242,7 @@ def ingresar():
     while True:
         try:
             precio = int(input("Ingrese el precio: "))
-            if precio > 1000:
+            if precio > 10000:
                 break
             else:
                 print("Ingrese un precio válido")
@@ -258,8 +258,8 @@ def ingresar():
         except:
             pass
     while True:
-        estado = input("Ingrese el estado de la obra: ")
-        if len(estado) >= 3:
+        estado = input("Ingrese el estado de la obra (acabada o en construcción): ").lower()
+        if len(estado) >= 3 and estado in ["acabada","en construcción","en construccion"]:
             break
         else:
             print("Ingrese un estado de la obra válido")
@@ -425,7 +425,7 @@ C=[]
 Cont=[]
 ingresarauto()
 contraseñas=[]#Contraseñas de los clientes registrados
-usuarios=[]#Usuarios de los clientes registrados
+usuarios=["A"]#Usuarios de los clientes registrados
 
 while True:
     print("\n")
