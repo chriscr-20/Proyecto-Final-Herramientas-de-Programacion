@@ -2,11 +2,12 @@ import re
 from string import punctuation #Importar librería con carácteres especiales
 
 class Clientes(object):
-    def __init__(self, nombre, apellido,tel,correo,contraseña, ):
-        self.nombre = nombre
-        self.apellido = apellido
-        self.tel = tel
-        self.correo = correo
+    def __init__(self,n,nombre, apellido,tel,correo,contraseña, ):
+        self.__n = n
+        self.__nombre = nombre
+        self.__apellido = apellido
+        self.__tel = tel
+        self.__correo = correo
         self.__contraseña = contraseña
     def getContraseña(self):
      clave=input("Ingrese la clave: ")
@@ -14,6 +15,17 @@ class Clientes(object):
          return self.__contraseña
      else:
          return "No esta autorizado para entrar a esta cuenta"
+    def getNombre(self):
+        return self.__nombre
+    def getn(self):
+        return self.__n
+    def getApellido(self):
+        return self.__apellido
+    def getTel(self):
+        return self.__tel
+    def getCorreo(self):
+        return self.__correo
+
 
 class Propiedad:
     def __init__(self, codigo, ubicacion, precio, m2, estado, habitaciones, tipo):
@@ -90,10 +102,28 @@ class Propiedad:
     def getTipo(self):
         return self.__tipo
 
+
 #Funciones del Programa
+
+def ver_datos_cliente_contacto():
+    while True:
+     print("Buscar cliente\n")
+     n = input("Ingrese el número del cliente: ")
+     try:
+           ind = Cont.index(n)
+           x=C[ind]
+           print(
+            "{0:12}{1:16}{2:15}{3:14}{4:18}".format("N°", "Nombre", "Apellido", "Teléfono", "Correo"))
+           print("{0:12}{1:16}{2:15}{3:14}{4:18}".format(str(x.getn()), x.getNombre(), str(x.getApellido()),
+
+                                                      str(x.getTel()), x.getCorreo()))
+           break
+     except:
+          print("El N° no existe")
 
 def Registrar():
     print("Inicio del Registro\n")
+    n=len(C)+1
     while True:
         try:
             nombre = input("Ingrese su nombre: ")
@@ -134,10 +164,19 @@ def Registrar():
             contraseña = None
             print("No ha sido posible establecer una contraseña")
             break
-    ObjCliente = Clientes(nombre,apellido,tel,correo,contraseña)
+    ObjCliente = Clientes(n,nombre,apellido,tel,correo,contraseña)
     C.append(ObjCliente)
     contraseñas.append(contraseña)
     usuarios.append(correo)
+    Cont.append(str(n))
+
+def visualizar_cliente():
+    print(
+            "{0:12}{1:16}{2:15}{3:14}{4:18}".format("N°", "Nombre", "Apellido", "Teléfono","Correo"))
+    for x in C:
+        print("{0:12}{1:16}{2:15}{3:14}{4:18}".format(str(x.getn()), x.getNombre(), str(x.getApellido()),
+
+                                                             str(x.getTel()), x.getCorreo()))
 
 def validador_contraseña (cts):
     if len (cts) < 6 or len (cts) > 12:
@@ -286,16 +325,14 @@ def visualizar():
     for x in L:
         print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:20}{6:25}".format(x.getCodigo(), x.getUbicacion(), str(x.getPrecio()), str(x.getM2()), x.getEstado(), str(x.getHabitaciones()), x.getTipo()))
 
-def inversion():
-    visualizar()
-    INV = [x.getPrecio() for x in L]
-    print("El precio total de todas las propiedades es: ", sum(INV))
+
 
 def clientes():
   while True:
     print("1. Registrarse")
     print("2. Iniciar sesión")
-    print("3. Salir")
+    print("3. Mirar propiedades sin usuario")
+    print("4. Salir")
     opc=input("Ingrese una opción: ")
     if opc=="1":
         Registrar()
@@ -328,7 +365,9 @@ def clientes():
                 contactar()
             elif x==3:
                 break
-    if opc=="3":
+    if opc == "3":
+        visualizar()
+    if opc == "4":
      break
 
 def vendedor():
@@ -337,10 +376,11 @@ def vendedor():
         print("2. Eliminar una propiedad")
         print("3. Editar los datos de alguna propiedad")
         print("4. Visualizar todas las propiedades")
-        print("5. Visualizar el precio acumulado de todas las propiedades")
-        print("6. Salir")
+        print("5. Visualizar los clientes registrados en la plataforma")
+        print("6. Buscar datos de los clientes que necesitan asesor")
+        print("7. Salir")
         opc = input("Selecciones una opción: ")
-        if opc == "6":
+        if opc == "7":
             break
         elif opc == "1":
             ingresar()
@@ -350,8 +390,10 @@ def vendedor():
             editar()
         elif opc == "4":
             visualizar()
-        elif opc == "5":
-            inversion()
+        elif opc=="5":
+            visualizar_cliente()
+        elif opc=="6":
+            ver_datos_cliente_contacto()
 
 # Programa principal
 
@@ -380,6 +422,7 @@ L1 = [
 L = []
 COD = []
 C=[]
+Cont=[]
 ingresarauto()
 contraseñas=[]#Contraseñas de los clientes registrados
 usuarios=[]#Usuarios de los clientes registrados
@@ -401,5 +444,3 @@ while True:
         vendedor()
     elif x=="3":
         break
-
-
