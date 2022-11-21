@@ -141,7 +141,7 @@ def editar():
 def visualizar():
     print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format("Código", "Ubicación", "Precio", "M2", "Estado de la obra", "N° de Habitaciones"))
     for x in range(len(L)):
-        print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format(L[x][0], L[x][1], L[x][2], L[x][3], L[x][4], L[x][5]))
+        print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format(L[x][0], L[x][1], str(L[x][2]), str(L[x][3]), L[x][4], str(L[x][5])))
 def inversion():
     visualizar()
     INV = [x.getPrecio() for x in L]
@@ -151,7 +151,7 @@ def inversion():
 L =[
    ["0001","Lince",110000,80,"En construcción",2],
    ["0002","Miraflores",180000,120,"En construcción",3],
-   ["0003","Breña",105000,70,"Acabada","3 habitación"],
+   ["0003","Breña",105000,70,"Acabada",3],
    ["0004","San Miguel",106000,60,"En construcción",4],
    ["0005","Surco",190000,70,"En construcción",3],
    ["0006","Lince",100000,80,"Acabada",4],
