@@ -115,6 +115,18 @@ def ingresar():
     objeto = Propiedad(codigo, ubicacion, precio, m2, estado, habitaciones)
     COD.append(codigo)
     L.append(objeto)
+def ingresarauto():
+    for x in range(len(L1)):
+        codigo = L1[x][0]
+        ubicacion = L1[x][1]
+        precio = L1[x][2]
+        m2 = L1[x][3]
+        estado = L1[x][4]
+        habitaciones = L1[x][5]
+        objeto = Propiedad(codigo, ubicacion, precio, m2, estado, habitaciones)
+        COD.append(codigo)
+        L.append(objeto)
+
 def eliminar():
     print("Ingrese el código de la propiedad a eliminar")
     codigo = input("Ingrese el Código: ")
@@ -134,21 +146,22 @@ def editar():
         L[ind].actualizarDatos()
         COD[ind] = L[ind].getCodigo()
         if COD.count(COD[ind]) > 1:
-            L[ind].setCodigo(dniOriginal)
+            L[ind].setCodigo(codigoOriginal)
             COD[ind] = codigoOriginal
     except:
         print("El Código no existe")
 def visualizar():
     print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format("Código", "Ubicación", "Precio", "M2", "Estado de la obra", "N° de Habitaciones"))
-    for x in range(len(L)):
-        print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format(L[x][0], L[x][1], str(L[x][2]), str(L[x][3]), L[x][4], str(L[x][5])))
+    for x in L:
+        print("{0:12}{1:16}{2:10}{3:10}{4:20}{5:15}".format(x.getCodigo(), x.getUbicacion(), str(x.getPrecio()), str(x.getM2()), x.getEstado(), str(x.getHabitaciones())))
 def inversion():
     visualizar()
     INV = [x.getPrecio() for x in L]
     print("El precio total de todas las propiedades es: ", sum(INV))
 
 # Programa principal
-L =[
+
+L1 = [
    ["0001","Lince",110000,80,"En construcción",2],
    ["0002","Miraflores",180000,120,"En construcción",3],
    ["0003","Breña",105000,70,"Acabada",3],
@@ -170,7 +183,9 @@ L =[
    ["0019", "La Molina", 400000, 240, "Acabada", 6],
    ["0020", "Jesús María", 110000, 190, "Acabada", 5]
    ]
-COD = [x[0] for x in L]
+L = []
+COD = []
+ingresarauto()
 while True:
     print("1. Ingresar una nueva propiedad")
     print("2. Eliminar una propiedad")
