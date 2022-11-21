@@ -206,3 +206,4 @@ while True:
         visualizar()
     elif opc=="5":
         inversion()
+ #Gracias
